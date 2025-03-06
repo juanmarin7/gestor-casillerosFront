@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: black;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.register-btn {
+    background: #4DD0E1;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tracking-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+.info h1 {
+    font-size: 36px;
+}
+
+.tracking-box {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.track-btn {
+    background: #4DD0E1;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
