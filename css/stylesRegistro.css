@@ -1,3 +1,5 @@
+/* los estilos se usan de manera independiente por archivo html
+para facilitar la migracion a un framework */
 body {
     background-color: #f8f9fa;
     font-family: Arial, sans-serif;
