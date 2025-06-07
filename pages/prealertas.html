@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prealertas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+    <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="../img/LOGO_CASILLERO.png" alt="LOGO" height="50">
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Rastrear</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Cotizar</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Preguntas</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn btn-info text-dark">Mi cuenta</a>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <h2 class="text-center text-info mb-4">Registrar Prealertas</h2>
+
+        <form id="prealertaForm" class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="trackingId" class="form-label">ID Tracking</label>
+                    <input type="text" class="form-control" id="trackingId" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="empresa" class="form-label">Empresa Transportadora</label>
+                    <input type="text" class="form-control" id="empresa" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="descripcion" class="form-label">Descripción del Producto</label>
+                    <input type="text" class="form-control" id="descripcion" required>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success">Agregar Prealerta</button>
+            </div>
+        </form>
+
+        <h4 class="text-info">Prealertas Registradas</h4>
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered table-hover" id="prealertasTable">
+                <thead class="table-secondary text-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>ID Tracking</th>
+                        <th>Empresa</th>
+                        <th>Descripción</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="prealertasBody">
+                    <!-- Aquí se cargan dinámicamente las prealertas -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("prealertaForm");
+        const body = document.getElementById("prealertasBody");
+
+        let prealertas = JSON.parse(localStorage.getItem("prealertas")) || [];
+
+        function renderPrealertas() {
+            body.innerHTML = "";
+            prealertas.forEach((prealerta, index) => {
+                body.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${prealerta.trackingId}</td>
+                        <td>${prealerta.empresa}</td>
+                        <td>${prealerta.descripcion}</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="eliminarPrealerta(${index})">Eliminar</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function eliminarPrealerta(index) {
+            if (confirm("¿Estás seguro de eliminar esta prealerta?")) {
+                prealertas.splice(index, 1);
+                localStorage.setItem("prealertas", JSON.stringify(prealertas));
+                renderPrealertas();
+            }
+        }
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const trackingId = document.getElementById("trackingId").value.trim();
+            const empresa = document.getElementById("empresa").value.trim();
+            const descripcion = document.getElementById("descripcion").value.trim();
+
+            if (!trackingId || !empresa || !descripcion) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+
+            prealertas.push({ trackingId, empresa, descripcion });
+            localStorage.setItem("prealertas", JSON.stringify(prealertas));
+            renderPrealertas();
+            form.reset();
+        });
+
+        // Cargar al iniciar
+        renderPrealertas();
+    </script>
+</body>
+</html>

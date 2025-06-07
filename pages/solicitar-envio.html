@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar Paquetes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+        <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="../img/LOGO_CASILLERO.png" alt="LOGO" height="50">
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Rastrear</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Cotizar</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Preguntas</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn btn-info text-dark">Mi cuenta</a>
+        </div>
+    </header>
+    <div class="container mt-4">
+        <h2 class="text-center text-info">Selecciona los productos a enviar</h2>
+
+        <form id="formEnvio" action="confirmar-envio.html" method="POST">
+            <div class="mb-4">
+                <div class="form-check bg-secondary p-3 rounded mb-2">
+                    <input class="form-check-input" type="checkbox" name="paquetes[]" value="123" id="paquete1">
+                    <label class="form-check-label" for="paquete1">
+                        Nro ingreso: 123 - Producto de prueba 1 - 13/ago./24
+                    </label>
+                </div>
+
+                <div class="form-check bg-secondary p-3 rounded mb-2">
+                    <input class="form-check-input" type="checkbox" name="paquetes[]" value="124" id="paquete2">
+                    <label class="form-check-label" for="paquete2">
+                        Nro ingreso: 124 - Producto de prueba 2 - 15/ago./24
+                    </label>
+                </div>
+            </div>
+
+            <h4 class="text-info">Datos de envío</h4>
+            <div class="mb-3">
+                <label for="destinatario" class="form-label">Nombre del destinatario</label>
+                <input type="text" class="form-control" id="destinatario" name="destinatario" required>
+            </div>
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección de envío</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" required>
+            </div>
+            <div class="mb-3">
+                <label for="ciudad" class="form-label">Ciudad</label>
+                <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" name="telefono">
+            </div>
+
+            <div class="text-center">
+               <button type="button" class="btn btn-success" onclick="confirmarEnvio()">Confirmar Envío</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+function confirmarEnvio() {
+    const paquetesSeleccionados = Array.from(document.querySelectorAll('input[name="paquetes[]"]:checked')).map(cb => cb.value);
+    const destinatario = document.getElementById("destinatario").value.trim();
+    const direccion = document.getElementById("direccion").value.trim();
+    const ciudad = document.getElementById("ciudad").value.trim();
+    let band1 = true;
+    let band2 = true;
+
+    if (paquetesSeleccionados.length === 0) {
+        alert("Debes seleccionar al menos un paquete.");
+        band1 = false;
+        return;
+    }
+
+    if (!destinatario || !direccion || !ciudad) {
+        alert("Por favor completa todos los datos del envío.");
+        band2 = false;
+        return;
+    }
+
+    if(band1){
+        alert("envio solicitado con exito");
+        window.location.href = "paquetesUsuario.html";
+    }
+    
+     
+}
+</script>
+
+
+</html>
